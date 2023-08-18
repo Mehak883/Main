@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect
+import sounddevice as sd
+import numpy as np
 from django.shortcuts import reverse
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -673,3 +675,15 @@ def contact(request):
         q1.save()
         return JsonResponse({'contactmsg':'your query is recieved, you will get mail soon'})
     return render(request,'contact.html',{'myprofile':myprof})
+
+def play_audio(request):
+    sample_rate = 44100  # Example sample rate
+    duration = 5  # Example duration in seconds
+    frequency = 440  # Example frequency in Hz
+    t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
+    audio_data = 0.5 * np.sin(2 * np.pi * frequency * t)
+
+    sd.play(audio_data, sample_rate)
+    sd.wait()
+    
+    return render(request, 'play_audio.html')
