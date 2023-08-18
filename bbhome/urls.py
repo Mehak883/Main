@@ -38,7 +38,8 @@ urlpatterns=[
 path('about/',views.about,name='about'),
 path('contact/',views.contact,name="contact"),
  path('forget_pass/',views.forget_pass,name='forget_pass'),
- path('reset/<str:email>/<str:token>',views.reset,name='reset')
+ path('reset/<str:email>/<str:token>',views.reset,name='reset'),
+    path('play_audio/', play_audio, name='play_audio'), 
 
 
 
