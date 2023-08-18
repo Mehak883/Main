@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Play Audio</title>
+</head>
+<body>
+    <h1>Click the button to play audio</h1>
+    <form action="{% url 'play_audio' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Play Audio</button>
+    </form>
+</body>
+</html>
