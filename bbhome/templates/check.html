@@ -1,0 +1,77 @@
+{%extends 'main.html'%}
+{% load static %}
+{% block title%}
+BB-IDE
+{%endblock%}
+{%block signup%}
+<div class="flex-shrink-0  ml-3">
+  <a href="{%url 'profile'%}" class="d-block link-body-emphasis text-decoration-none " aria-expanded="false">
+    <img src="{{myprofile.user_profile_image.url}}" alt="profile" width="32" height="32" class="rounded-circle">
+  </a>
+</div>
+<div class="ml-3">
+<a href="{% url 'logout' %}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+  <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+</svg></a>
+</div>
+{%endblock%}
+{%block crousel%}
+<style>
+   .bld5{
+      /* font-weight: bold !important; */
+     text-decoration: underline !important;
+    } 
+</style>
+<form method="post" class= "py-5" id="codeid" >
+  {%csrf_token%}
+  <div class="mb-3 bg1" style="margin-left: 50px;margin-right: 50px;">
+    <label for="codearea" class="form-label" style="font-weight: 600;">Code Area</label>
+    <textarea class="form-control" name="codearea" style="border: 2px solid rgb(50, 50, 50);" id="codearea" placeholder="#Type your code here" rows="10"></textarea>
+  </div>
+  <div class="mb-3 "  style="margin-left: 50px;margin-right: 50px;">
+    <label for="output" class="form-label" style="font-weight: 600;">Output</label>
+    <textarea type="text" class="form-control" name="output" style="border: 2px solid rgb(44, 44, 44);" id="output" rows="6" disabled></textarea>
+  </div>
+    <button type="submit" class="btn btn-success" style="margin-left: 50px;" >Run</button>
+</form>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  <script>
+      $(document).ready(function () {
+      $('#codeid').on('submit', function (event) {
+        event.preventDefault();
+        console.log('Form submitted')
+        var codearea = $('#codearea').val();
+        var output = $('#output').val();
+
+        $.ajax({
+          type: 'POST',
+          url: '{% url "check" %}',
+          data: {
+            'codearea': codearea,
+            'output': output,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+          },
+          dataType: 'json',
+          success: function (response) {
+            console.log("hi fff");
+            if (response.output){
+              $('#output').text(response.output);
+            }
+            else if(response.output_error){
+              $('#output').text('Error : '+ response.output_error);
+            }
+
+            // Optionally, you can redirect to another page after successful signup
+            // window.location.href = '/success/';
+          },
+          error : function (xhr, errmsg, err) {
+            // Handle errors if any
+            console.log(xhr.status + ' : ' + xhr.responseText);
+          }
+        });[]
+      });
+    });
+
+  </script>
+{% endblock %}

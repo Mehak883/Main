@@ -1,0 +1,134 @@
+{% extends 'home.html'%}
+{% block title%}
+BB-LOGIN
+{% endblock%}
+{% block signup %}
+<div class="mx-2">
+    <button type="button" class="btn btn-outline-dark " data-toggle="modal"
+      data-target="#loginSignupModal">Login/Signup</button>
+  </div>
+{%endblock%}
+{% block login-signup%}
+<div class="modal fade" id="loginSignupModal" tabindex="-1" role="dialog" aria-labelledby="loginSignupModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginSignupModalLabel">Login / Signup</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <ul class="nav nav-tabs" id="loginSignupTabs" role="tablist">
+          <li class="nav-item col-6">
+            <a class="nav-link active" id="loginTab" data-toggle="tab" href="#loginContent" role="tab"
+              aria-controls="loginContent" aria-selected="true">Login</a>
+          </li>
+          <li class="nav-item col-6">
+            <a class="nav-link" id="signupTab" data-toggle="tab" href="#signupContent" role="tab"
+              aria-controls="signupContent" aria-selected="false">Signup</a>
+          </li>
+        </ul>
+        <div class="tab-content mt-2" id="loginSignupTabContent">
+
+          <div class="tab-pane fade show active" id="loginContent" role="tabpanel" aria-labelledby="loginTab">
+            <!-- Login form goes here -->
+            <div class="container">
+              <div id="loginmsg">
+              </div>
+            </div>
+            <form method="post" action="{%url 'login_check' %}" id="login-form">
+              {% csrf_token %}
+
+              <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" class="form-control" id="loginEmail" name="email" placeholder="Enter email">
+              </div>
+              <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" class="form-control" id="loginPassword" name="password"
+                  placeholder="Enter password">
+              </div>
+              <button type="submit" class="btn btn-primary d-grid gap-2 col-6 mx-auto">Login</button>
+            </form>
+            <div class="row mt-3">
+              <div class="col-5">
+                <hr>
+              </div>
+              <div class="col-2 text-center">or</div>
+              <div class="col-5">
+                <hr>
+              </div>
+            </div>
+            <button class="btn btn-primary d-grid gap-2 col-6 mx-auto">
+              <a class="nav-link" href="{% url 'social:begin' 'google-oauth2' %}">Login With Google</a>
+            </button>
+
+            <!-- <div class="container-fluid">
+                <p>Don't have an account?   <a  data-toggle="tab" href="#signupContent" role="tab"
+                  aria-controls="signupContent" aria-selected="true">Signup</a></p>
+              </div> -->
+          </div>
+          <div class="tab-pane fade" id="signupContent" role="tabpanel" aria-labelledby="signupTab">
+            <div class="container">
+              <div id="msg">
+              </div>
+            </div>
+
+            <form method="post" action="{%url 'signup' %}" id="signup-form" class="row g-3">
+              {% csrf_token %}
+              <div class="col-6">
+                <label for="signupFirstname">Firstname</label>
+                <input type="text" class="form-control" id="signupFirstname" name="firstname"
+                  placeholder="Enter Firstname">
+              </div>
+              <div class="col-6">
+                <label for="signupLastname">Lastname</label>
+                <input type="text" class="form-control" id="signupLastname" name="lastname"
+                  placeholder="Enter Lastname">
+              </div>
+              <div class="form-group">
+                <label for="signupEmail">Email</label>
+                <input type="email" class="form-control" id="signupEmail" name="email" placeholder="Enter email"
+                  required>
+              </div>
+              <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <input type="password" class="form-control" id="signupPassword" name="password"
+                  placeholder="Enter password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  title="Must contain at least one number, one uppercase and lowercase letter, and be at least 8 characters long."
+                  required>
+              </div>
+              <button type="submit" id="s1" class="btn btn-primary d-grid gap-2 col-6 mx-auto">Signup</button>
+              <!-- <button class="btn btn-primary" id="s2" type="button" disabled> -->
+              <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span class="visually-hidden">Loading...</span>
+              </button>
+            </form> -->
+              <div class="row mt-3">
+                <div class="col-5">
+                  <hr>
+                </div>
+                <div class="col-2 text-center">or</div>
+                <div class="col-5">
+                  <hr>
+                </div>
+              </div>
+
+              <button class="btn btn-primary d-grid gap-2 col-6 mx-auto">
+                <a class="nav-link" href="{% url 'social:begin' 'google-oauth2' %}">Signup With Google</a>
+              </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+{%endblock%}

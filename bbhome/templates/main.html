@@ -1,0 +1,395 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Start of Async Drift Code -->
+  {%block drift%}{%endblock%}
+
+  <!-- End of Async Drift Code -->
+  <style>
+    .mine {
+      height: 570px;
+    }
+    html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+
+    .swiper {
+      width: 100%;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 300px;
+      height: 300px;
+      -webkit-box-reflect: below 1px linear-gradient(transparent,transparent,#0006);
+    }
+    .swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    transition-property: transform;
+    transition-timing-function: var(--swiper-wrapper-transition-timing-function,initial);
+    box-sizing: content-box;
+    }
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+    }
+   
+  </style>
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{%block title%}{% endblock%}</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="{% static 'main.css'%}">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <script src="//code.tidio.co/tl7saov2tjwzvoeucfgac4kdpmdjloc7.js" async></script>
+</head>
+
+<body {%block class%} {%endblock%}>
+  <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary bg">
+
+    <div class="container-fluid">
+      <img
+        src="https://static.vecteezy.com/system/resources/previews/004/698/023/original/the-initial-letter-bb-logo-design-free-vector.jpg"
+        alt="Bootstrap" width="30" height="24">
+      <a class="navbar-brand mb-0 h1" href="#"
+        style="color: whitesmoke;font-family: Arial, Helvetica, sans-serif;">&nbsp;BrainBlaze</a>
+      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 " >
+          <li class="nav-item">
+            <a class="nav-link active bld" aria-current="page" href="{%url 'home'%}"
+              style="color: whitesmoke !important;font-family: Arial, Helvetica, sans-serif !important;">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link bld3" href="{%url 'about'%}" style="color: whitesmoke;font-family: Arial, Helvetica, sans-serif;">About</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle  " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+              style="color: whitesmoke;font-family: Arial, Helvetica, sans-serif;">
+              Quiz
+            </a>
+            <ul class="dropdown-menu bg">
+              <li><a class="dropdown-item" href="{%url 'quiz_python'%}">Python</a></li>
+              <li><a class="dropdown-item" href="{%url 'quiz_java'%}">Java</a></li>
+              <li><a class="dropdown-item" href="{%url 'quiz_html'%}">Html/CSS</a></li>
+              <li><a class="dropdown-item" href="{%url 'quiz_javascript'%}">Javascript</a></li>
+              <li><a class="dropdown-item" href="{%url 'quiz_cpp'%}">C++</a></li>
+              <li><a class="dropdown-item" href="{%url 'quiz_clang'%}">C</a></li>
+
+          
+              <li>
+
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Aptitude</a></li>
+            </form>
+            </ul>
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link bld5" href="{%url 'check'%}" style="color: whitesmoke;font-family: Arial, Helvetica, sans-serif;">Python IDE</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link bld7" href="{%url 'gift'%}" style="color: whitesmoke;font-family: Arial, Helvetica, sans-serif;">Voucher</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link bld1" href="{%url 'rank'%}" style="color: whitesmoke;font-family: Arial, Helvetica, sans-serif;">Rank</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link bld4" href="{%url 'contact'%}" style="color: whitesmoke;font-family: Arial, Helvetica, sans-serif;">Support</a>
+          </li>
+          <!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle  " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Leaderboard
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Python</a></li>
+                  <li><a class="dropdown-item" href="#">Java</a></li>
+                  <li><a class="dropdown-item" href="#">Html</a></li>
+                  <li><a class="dropdown-item" href="#">C++</a></li>
+                  <li><a class="dropdown-item" href="#">Sql</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Aptitude</a></li>
+                </ul>
+              </li>
+
+              </li> -->
+          <!-- <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+              </li> -->
+        </ul>
+       
+        {% block signup %}
+        {%endblock%}
+
+      </div>
+    </div>
+    </div>
+  </nav>
+  <!-- Login/Signup Modal -->
+  <div class="modal fade" id="loginSignupModal" tabindex="-1" role="dialog" aria-labelledby="loginSignupModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog " role="document">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <h5 class="modal-title text-light" id="loginSignupModalLabel">Login / Signup</h5>
+          <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+
+          <ul class="nav nav-tabs" id="loginSignupTabs" role="tablist">
+            <li class="nav-item col-6">
+              <a class="nav-link active " id="loginTab" data-toggle="tab" href="#loginContent" role="tab"
+                aria-controls="loginContent" aria-selected="true">Login</a>
+            </li>
+            <li class="nav-item col-6">
+              <a class="nav-link" id="signupTab" data-toggle="tab" href="#signupContent" role="tab"
+                aria-controls="signupContent" aria-selected="false">Signup</a>
+            </li>
+          </ul>
+          <div class="tab-content mt-2" id="loginSignupTabContent">
+
+            <div class="tab-pane fade show active" id="loginContent" role="tabpanel" aria-labelledby="loginTab">
+              <!-- Login form goes here -->
+              <!-- <div class="container"> -->
+                <div id="loginmsg">
+                </div>
+              <!-- </div>  -->
+              <form method="post" action="{%url 'login_check' %}" id="login-form">
+                {% csrf_token %}
+                <div class="form-group text-light">
+                  <label for="loginEmail">Email</label>
+                  <input type="email" class="form-control" id="loginEmail" name="email" required placeholder="Enter email">
+                </div>
+                <div class="form-group text-light">
+                  <label for="loginPassword">Password</label>
+                  <input type="password" class="form-control" id="loginPassword" required name="password"
+                    placeholder="Enter password"> 
+                 
+                  </div>
+                  <input type="submit" class="btn btn-light d-grid gap-2 col-6 mx-auto" value="Submit">
+                </form>
+                <div style="padding-top: 5px;" class="text-end">
+                
+                <a href="{% url 'forget_pass'%}" style="font-size: 13px; color: white;">Forget Password?</a>
+              </div>
+                <div class="row mt-3">
+                  <div class="col-5">
+                    <hr class=" text-light">
+                  </div>
+                  <div class="col-2 text-center text-light">or</div>
+                  <div class="col-5">
+                    <hr class=" text-light">
+                  </div>
+                </div>
+                <button class="btn btn-light d-grid gap-2 col-6 mx-auto">
+                  <a class="nav-link" style="color: black !important;"
+                  href="{% url 'social:begin' 'google-oauth2' %}">Login With Google</a>
+                </button>
+                
+              <!-- <div class="container-fluid">
+                  <p>Don't have an account?   <a  data-toggle="tab" href="#signupContent" role="tab"
+                    aria-controls="signupContent" aria-selected="true">Signup</a></p>
+                </div> -->
+            </div>
+            <div class="tab-pane fade" id="signupContent" role="tabpanel" aria-labelledby="signupTab">
+                <div id="msg">
+                </div>
+              <form method="post" action="{%url 'signup' %}" id="signup-form" class="row g-3">
+                {% csrf_token %}
+                <div class="col-6 text-light">
+                  <label for="signupFirstname">Firstname</label>
+                  <input type="text" class="form-control" id="signupFirstname" name="firstname"
+                    placeholder="Enter Firstname">
+                </div>
+                <div class="col-6 text-light">
+                  <label for="signupLastname">Lastname</label>
+                  <input type="text" class="form-control" id="signupLastname" name="lastname"
+                    placeholder="Enter Lastname">
+                </div>
+                <div class="form-group text-light">
+                  <label for="signupEmail">Email</label>
+                  <input type="email" class="form-control" id="signupEmail" name="email" placeholder="Enter email" required>
+                </div>
+                <div class="form-group text-light">
+                  <label for="signupPassword">Password</label>
+                  <input type="password" class="form-control" id="signupPassword" name="password"
+                    placeholder="Enter password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="Must contain at least one number, one uppercase and lowercase letter, and be at least 8 characters long."
+                    required>
+                </div>
+                <button type="submit" id="s1" class="btn btn-light d-grid gap-2 col-6 mx-auto">Signup</button>
+                <!-- <button class="btn btn-primary" id="s2" type="button" disabled> -->
+                <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  <span class="visually-hidden">Loading...</span>
+                </button>
+              </form> -->
+                <div class="row mt-3">
+                  <div class="col-5">
+                    <hr class="text-light">
+                  </div>
+                  <div class="col-2 text-center text-light">or</div>
+                  <div class="col-5">
+                    <hr class="text-light">
+                  </div>
+                </div>
+
+                <button class="btn btn-light d-grid gap-2 col-6 mx-auto">
+                  <a class="nav-link " style="color: black !important;"
+                    href="{% url 'social:begin' 'google-oauth2' %}">Signup With Google</a>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Your signup form and modal code -->
+
+
+  <script>
+
+    $(document).ready(function () {
+      $('#login-form').on('submit', function (event) {
+        event.preventDefault();
+        console.log('Form submitted')
+        var email = $('#loginEmail').val();
+        var password = $('#loginPassword').val();
+
+        $.ajax({
+          type: 'POST',
+          url: '{% url "login_check" %}',
+          data: {
+            'email': email,
+            'password': password,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+          },
+          dataType: 'json',
+          success: function (response) {
+            if (response.success==='Account Verified'){
+                setTimeout(() => {
+                  window.location.href='/home'
+                }, 500);
+            }
+            else{
+            $('#loginmsg').html('<div class="alert alert-danger">' + response.error + '</div>');
+
+            }
+            // Optionally, you can redirect to another page after successful signup
+            // window.location.href = '/success/';
+          },
+          error: function (xhr, errmsg, err) {
+            // Handle errors if any
+            console.log(xhr.status + ' : ' + xhr.responseText);
+          }
+        });[]
+      });
+    });
+
+
+
+
+
+
+    $(document).ready(function () {
+      $('#signup-form').on('submit', function (event) {
+        event.preventDefault();
+        console.log('Form submitted')
+        var username = $('#signupUsername').val();
+        var firstname = $('#signupFirstname').val();
+        var lastname = $('#signupLastname').val();
+        var email = $('#signupEmail').val();
+        var password = $('#signupPassword').val();
+
+        $.ajax({
+          type: 'POST',
+          url: '{% url "signup" %}',
+          data: {
+            'username': username,
+            'firstname': firstname,
+            'lastname': lastname,
+            'email': email,
+            'password': password,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+          },
+          dataType: 'json',
+          success: function (response) {
+            if (response.message) {
+              $('#msg').html('<div class="alert alert-danger">' + response.message + '</div>');
+            }
+            else if (response.success) {
+              $('#msg').html('<div class="alert alert-success">' + response.success + '</div>')
+            }
+            // Optionally, you can redirect to another page after successful signup
+            // window.location.href = '/success/';
+          },
+          error: function (xhr, errmsg, err) {
+            // Handle errors if any
+            console.log(xhr.status + ' : ' + xhr.responseText);
+          }
+        });[]
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+
+  {% block crousel%}
+  {% endblock %}
+  {%block card%}
+  {%endblock%}
+  {%block quesform%}
+  {%endblock%}
+  {%block display_bbques%}
+  {%endblock%}
+  {%block edit_bbques%}
+  {%endblock%}
+  {%block modal%}
+  {%endblock%}
+  {%block gift%}
+  {%endblock%}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+</body>
+
+
+</html>

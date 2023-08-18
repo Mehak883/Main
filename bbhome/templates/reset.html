@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'main.css'%}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .form-control:focus {
+            border-color: rgb(0, 0, 0) !important;
+            /* Wine red color */
+            box-shadow: 0 0 0 0.25rem rgba(75, 68, 68, 0.2) !important;
+            /* Wine red box shadow */
+        }
+    </style>
+</head>
+
+<body class="bg1">
+    <div class="container p-5">
+        <div class="p-5">
+            <div class="card align-content-center"
+                style="width: 24rem; margin: auto; border:2px solid rgb(9, 52, 9);background-color: aliceblue;">
+                <h4 class="text-decoration-underline text-center" style="padding-top: 10px;">Reset Password</h4>
+                <div id="resetmsg">
+
+                </div>
+                <form  id="resetpass" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3 mx-4" style="margin-top: 40px;">
+                        <label for="npass" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="npass" name="password" placeholder="Enter new password">
+                    </div>
+                    <div class="mb-3 mx-4">
+                        <label for="napass" class="form-label">Again Password</label>
+                        <input type="password" class="form-control" id="napass" name="apassword"
+                            placeholder="Enter again new password">
+                    </div>
+                    
+                    <div class="text-end gap-2 mt-5 mb-3 mx-4">
+                        <input type="submit" class="btn btn-success"  value="Change Password">
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $(document).ready(function () {
+            $('#resetpass').on('submit', function (event) {
+                event.preventDefault();
+                console.log('Form submitted')
+                var email ="{{email}}"; // Get the email value from the form input
+                var token = "{{token}}";
+                var password = $('#npass').val();
+                var apassword = $('#napass').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'reset' email=email token=token %}",
+                    data: {
+                        'email': email,
+                        'token': token,
+                        'password': password,
+                        'apassword': apassword,
+                         csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.reset1) {
+                            $('#resetmsg').html('<div class="alert alert-success">' + response.reset1 + '</div>');
+                            window.location.href = "{% url 'login'%}";
+                        }
+                        if (response.reset2) {
+                            $('#resetmsg').html('<div class="alert alert-danger">' + response.reset2 + '</div>');
+                        }
+                        if (response.reset3) {
+                            $('#resetmsg').html('<div class="alert alert-success">' + response.reset1 + '</div>');
+                            window.location.href = "{% url 'login_que'%}";
+                        }
+                        // Optionally, you can redirect to another page after successful signup
+                        // window.location.href = '/success/';
+                    },
+                    error: function (xhr, errmsg, err) {
+                        // Handle errors if any
+                        console.log(xhr.status + ' : ' + xhr.responseText);
+                    }
+                });[]
+            });
+        });
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

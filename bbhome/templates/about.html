@@ -1,0 +1,110 @@
+{%extends 'main.html'%}
+{%load static%}
+{% block title%}
+BB-About
+{%endblock%}
+{%block signup%}
+<div class="flex-shrink-0  ml-3">
+  <a href="{%url 'profile'%}" class="d-block link-body-emphasis text-decoration-none " aria-expanded="false">
+    <img src="{{myprofile.user_profile_image.url}}" alt="profile" width="32" height="32" class="rounded-circle">
+  </a>
+</div>
+<div class="ml-3">
+<a href="{% url 'logout' %}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+  <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+</svg></a>
+</div>
+{%endblock%}
+{%block crousel%}
+<style>
+    .bld3{
+      /* font-weight: bold !important; */
+     text-decoration: underline !important;
+    } 
+</style>
+<div class="container my-4" >
+    <div class="row featurette d-flex justify-content-center align-items-center">
+        <div class="col-md-7 bg1" >
+            <h2 class="featurette-heading fw-normal lh-1" style="color: darkblue;">Welcome to BrainBlaze - <span
+                    style="color: rgb(0, 0, 0);"> Your Ultimate Destination for Technical Knowledge!</span></h2>
+            <p class="lead" style="text-align: justify;font-weight: 400;">At BrainBlaze, we are passionate about all things tech! Our platform is designed to challenge and inspire tech enthusiasts, professionals, and curious minds alike. Whether you're a seasoned programmer, an aspiring engineer, or simply love exploring the fascinating world of technology, you've come to the right place.</p>
+        </div>
+        <div class="col-md-5">
+            <img class="bd-placeholder-img about-image bd-placeholder-img-lg featurette-image img-fluid mx-auto" style="width: 500px;height: 300px;"  src="https://www.universal-rights.org/wp-content/uploads/2019/09/30212411048_2a1d7200e2_z-1.jpg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+                preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect></svg>
+        </div>
+    </div>
+</div>
+<div class="container my-4">
+    <div class="row featurette d-flex justify-content-center align-items-center">
+        <div class="col-md-7 order-md-2 bg1"  >
+            <h2 class="featurette-heading fw-normal lh-1 " style="color: darkblue;">Extensive Question Database -<span
+                    style="color: black;">Wide Range of Questions</span></h2>
+            <p class="lead" style="font-weight: 400;text-align: justify;">Our website boasts an extensive collection of carefully curated technical questions covering a wide array of topics. From programming languages like Python, Java, and C++, to cutting-edge technologies like AI, Blockchain, and IoT, we've got you covered!</p>
+        </div>
+        <!-- <div class="col-md-5">
+            <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+            height="500" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVjaG5vbG9neXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+            preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect></svg>
+        </div> -->
+        <div class="col-md-5">
+            <img class="bd-placeholder-img bd-placeholder-img-lg about-image featurette-image img-fluid mx-auto" style="width: 500px;height: 300px;" src="{%static 'cqb.png'%}" role="img" aria-label="Placeholder: 500x500"
+            preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect></svg>
+        </div>
+    </div>
+    </div>
+    <div class="container my-4">
+        <div class="row featurette d-flex justify-content-center align-items-center">
+            <div class="col-md-7 bg1" >
+                <h2 class="featurette-heading fw-normal lh-1" style="color: darkblue;">Real-World Relevance -<span
+                    style="color: black;"> Not Only Theoretical Concepts</span></h2>
+                    <p class="lead" style="font-weight: 400;text-align: justify;">Our quiz questions are designed to mirror real-world scenarios, ensuring that you not only learn theoretical concepts but also understand how they apply in practical situations. This approach enhances your problem-solving skills and prepares you to tackle real technical challenges with confidence.</p>
+                    </div>
+                    <div class="col-md-5">
+                <img class="bd-placeholder-img bd-placeholder-img-lg about-image featurette-image img-fluid mx-auto" style="width: 500px;height: 300px;" src="https://media.gettyimages.com/id/1335295270/photo/global-connection.jpg?s=612x612&w=gi&k=20&c=xs_DvcvEflA-EIRXXGK71Et6OtVHldTx2E7flyjybk0=" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+                    preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect></svg>
+                </div>
+            </div>
+            </div>
+            <div class="container my-4">
+                <div class="row featurette d-flex justify-content-center align-items-center">
+                    <div class="col-md-7 bg1 order-md-2" >
+                        <h2 class="featurette-heading fw-normal lh-1" style="color: darkblue;">Benefits from BrainBlaze -<span
+                            style="color: black;">Enhance skills and Boost your confidence</span></h2>
+                            <p class="lead" style="font-weight: 400;text-align: justify;">Whether you're a computer science major, engineering student, or just eager to expand your technical horizons, our quizzes are a valuable educational resource.
+You can enhance your skills, stay relevant in your field, and impress your colleagues and employers with your vast technical knowledge.</p>
+                            </div>
+                            <div class="col-md-5">
+                                <img class="bd-placeholder-img bd-placeholder-img-lg about-image featurette-image img-fluid mx-auto" width="500"
+                                height="500" src="https://www.homecareinsight.co.uk/2020/07/connected-technology.jpg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+                                preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect>
+                </div>
+            </div>
+            <div class="container my-4">
+                <div class="row featurette d-flex justify-content-center align-items-center">
+                    <div class="col-md-7 bg1" >
+                        <h2 class="featurette-heading fw-normal lh-1" style="color: darkblue;">Earn Coins, Get Vouchers -<span
+                            style="color: black;"> Unlock Rewards with TechQuizzer!</span></h2>
+                            <p class="lead" style="font-weight: 400;text-align: justify;">At BrainBlaze, we believe in rewarding knowledge! With our unique coin-based system, you not only expand your technical expertise but also earn valuable coins along the way. As you participate in quizzes, challenge yourself, and climb up the leaderboard, you'll accumulate coins that can be redeemed for exciting vouchers from top tech brands and online retailers.
+                            </p>
+                            </div>
+                            <div class="col-md-5">
+                        <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image about-image img-fluid mx-auto" style="width: 500px;height: 300px;" src="{%static 'voucher.jpg'%}" role="img" aria-label="Placeholder: 500x500"
+                            preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect></svg>
+                        </div>
+                    </div>
+                    </div>
+{%endblock%}

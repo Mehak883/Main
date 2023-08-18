@@ -1,0 +1,126 @@
+{%extends 'main.html'%}
+{%block signup%}
+<div class="flex-shrink-0  ml-3">
+  <a href="{%url 'profile'%}" class="d-block link-body-emphasis text-decoration-none " aria-expanded="false">
+    <img src="{{myprofile.user_profile_image.url}}" alt="profile" width="32" height="32" class="rounded-circle">
+  </a>
+</div>
+<div class="ml-3">
+  <a href="{% url 'logout' %}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+    <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+  </svg></a>
+  </div>
+{%endblock%}
+{%load static%}
+{%block crousel%}
+<style>
+    /* CSS for the scrollable div */
+    .scrollable-div {
+      height: 300px;
+      /* Set the desired height for the scrollable div */
+      overflow: auto;
+    }
+    .bld1{
+      /* font-weight: bold !important; */
+     text-decoration: underline !important;
+    } 
+    table{
+      
+    position: relative;
+    /* top:50%;
+    left: 50%; */
+      /* transform: translate(-50%,-50%); */
+      border-collapse: collapse;
+      width: 100%;
+      height: 100px;
+      border:1px solid grey;
+      box-shadow: 2px 2px 12px rgba(0,0,0,0.2), -1px -1px 8px rgba(0,0,0,0.2);
+    }
+    tr{
+      transition: all .2s ease-in;
+      cursor: pointer;
+      border-radius:10px;
+      background-color: #ffffff;
+    }
+    th,td{
+      padding: 12px;
+      text-align: left;
+    
+      /* border-bottom: 1px solid #ddd; */
+    }
+    /* tr:nth-child(2){
+        background-color: gold;
+        border-bottom: 1px solid black;
+        
+    }
+    tr:nth-child(3) ,tr:nth-child(4){
+        background-color: silver;
+        border-bottom: 1px solid black;
+
+    }
+    tr:nth-child(5),tr:nth-child(6),tr:nth-child(7){
+        background-color: burlywood;
+    }
+    tr:nth-child(4) ,tr:nth-child(7){
+        border-bottom: 1px solid black;
+    }
+    #header{
+      background-color: rgb(53, 38, 136);
+      color:#ffffff;
+  
+    } */
+    tr:hover{
+      background-color: rgb(223, 194, 249);
+      color: #000000;
+      transform: scale(1.02);
+      box-shadow: 2px 2px 12px rgba(0,0,0), -1px -1px 8px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 768px){
+      table{
+        width:90%;
+      }
+    }
+    </style>
+    <div class="container-fluid p-5 bg1"  >
+<table >
+    <tr id="header">
+      <th>User</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Points</th>
+      <th>Rank</th>
+    
+  
+    </tr>
+    {% for i in myrank%}
+  
+    {% if i.user.email == myprofile.email %}
+ 
+    <tr style="background-color:rgb(199, 229, 255);">
+        {%else%}
+<tr>
+{%endif%}
+        {%if i.user.user_profile_image%}
+    <td><img src="{{i.user.user_profile_image.url}}" alt="profile" width="32" height="32" class="rounded-circle"></td>
+    {%else%}
+    <td><img src="{% static 'defaultprofile.jpg'%}" alt="profile" width="32" height="32" class="rounded-circle"></td>
+ 
+            {%endif%}
+            {%if i.user.first_name%}
+        <td style="color: darkgreen;font-weight: 600;">{{i.user.first_name|title}} {{i.user.last_name|title}}</td>
+        {%else%}
+        <td style="color: darkgreen;font-weight: 600;"> - </td>
+        {%endif%}
+      <td style="color: rgb(104, 7, 40);font-weight: 600;">{{i.user.email}}</td>
+      <td style="color:rgb(179, 5, 31);font-weight: 600;">{{i.total_rights}}</td>
+      <td style="color: rgb(8, 13, 108);"><b>{{i.rank}}</b></td>
+      <!-- <td>{{i.date}}</td>
+      <td>{{i.time}}</td> -->
+   
+  
+    </tr>
+    {%endfor%}
+  </table>
+</div>
+    {%endblock%}

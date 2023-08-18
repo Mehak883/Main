@@ -1,0 +1,157 @@
+{%extends 'main_que.html'%}
+{% block title%}
+BB-Create quiz
+{% endblock%}
+{% block quesform%}
+<style>
+    .animate-charcter {
+
+        background-image: linear-gradient(-225deg,
+        #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%);
+        background-size: auto auto;
+        background-clip: border-box;
+        background-size: 2%00 auto;
+        color: #fff;
+        background-clip: text;
+        text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: textclip 2s linear infinite;
+        display: inline-block;
+        font-size: 40px;
+
+    }
+
+ 
+
+    
+    
+</style>
+<div class="container">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-dark alert-dismissible fade show" role="alert">{{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+<div class="container p-5 " >
+    <div class="row" >
+        <div class=" text-center  new " style="border-radius: 10px;background-color:transparent ;">
+            <h3 class="animate-charcter " > Add Questions</h3>
+            <span class="top new1"></span>
+            <span class="right new1"></span>
+            <span class="bottom new1"></span>
+            <span class="left new1"></span>
+        </div>
+    </div>
+</div>
+
+<div class="container px-5  ">
+    <form id="my_form" method="post" class="row g-3 needs-validation " novalidate>
+
+        {% csrf_token %}
+        <div class="input-group mb-3" >
+            <span class="input-group-text" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"> <label class="form-label" for="que">Question</label></span>
+            <textarea id="que" name="que" required class="form-control" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;"  aria-label="With textarea"></textarea>
+            <div class="invalid-feedback">
+                please enter question!
+            </div>
+        </div>
+        <div class="input-group mb-3" >
+            <span class="input-group-text" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"> <label class="form-label" for="code">Code</label></span>
+            <textarea id="code" name="code" class="form-control" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;"  aria-label="With textarea"></textarea>
+         
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;" class="form-label" for="type">Type</label>
+            <select class="form-select" name="type" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" required id="type">
+                <option value="">Select type</option>
+                <option value="Java">Java</option>
+                <option value="C++">C++</option>
+                <option value="C">C</option>
+                <option value="Python">Python</option>
+                <option value="Html">Html/CSS</option>
+                <option value="Javascript">Javascript</option>
+                <option value="Aptitude">Aptitude</option>
+            </select>
+            <div class="invalid-feedback">
+                please enter appropriate type of question!
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px; justify-content:center;"><label class="form-label"  for="A">A</label></span>
+            <input type="text" id="A" name="A" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" required aria-label="A" class="form-control">
+            <div class="invalid-feedback">
+                please enter value A!
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"><label class="form-label" for="B">B</label></span>
+            <input type="text" id="B" name="B" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" required aria-label="B" class="form-control">
+            <div class="invalid-feedback">
+                please enter value B!
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"><label class="form-label" for="C">C</label></span>
+            <input type="text" id="C" name="C" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" required aria-label="C" class="form-control">
+            <div class="invalid-feedback">
+                please enter value C!
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"><label class="form-label" for="D">D</label></span>
+            <input type="text" id="D" name="D" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" required aria-label="D" class="form-control">
+            <div class="invalid-feedback">
+                please enter value D!
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;" class="form-label" for="type">Answer</label>
+            <select class="form-select" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" name="ans" required id="type">
+                <option class="optn-clr" value="">Select Option</option>
+                <option class="optn-clr" value="A">A</option>
+                <option class="optn-clr" value="B">B</option>
+                <option class="optn-clr" value="C">C</option>
+                <option class="optn-clr" value="D">D</option>
+
+            </select>
+            <div class="invalid-feedback">
+                please enter question!
+            </div>
+        </div>
+</div>
+<div class="container px-5 ">
+    <div class="d-grid gap-2 d-md-flex">
+        <input type="submit" class="btn btn-custom me-md-2" name="save" value="Save" onclick="validateForm()">
+        <input type="submit" class="btn btn-custom me-md-2" name="save_add" value="Save and add another"
+            onclick="validateForm()">
+        <input type="reset" class="btn btn-custom  me-md-2" value="Reset">
+    </div>
+</div>
+</form>
+</div>
+<script>
+    function validateForm() {
+        // Manually check form validity
+        var form = document.getElementById('my_form');
+        if (form.checkValidity() === false) {
+            event.preventDefault(); // Prevent form submission if invalid
+            event.stopPropagation(); // Stop event propagation
+
+            form.classList.add('was-validated'); // Add 'was-validated' class to display validation styles
+
+            // Scroll to the first invalid field
+            var firstInvalidField = form.querySelector(':invalid');
+            firstInvalidField.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+</script>
+
+{% endblock %}

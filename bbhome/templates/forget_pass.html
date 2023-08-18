@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forget Password</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'main.css'%}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .form-control:focus {
+            border-color: rgb(0, 0, 0) !important;
+            /* Wine red color */
+            box-shadow: 0 0 0 0.25rem rgba(75, 68, 68, 0.2) !important;
+            /* Wine red box shadow */
+        }
+    </style>
+</head>
+
+<body class="bg1">
+    <div class="container p-5">
+        <div class="p-5">
+            <div class="card align-content-center"
+                style="width: 25rem; margin: auto; border:2px solid rgb(6, 39, 6);background-color: aliceblue;">
+                <h4 class="text-decoration-underline text-center" style="padding-top: 10px;">Forget Password</h4>
+                <div id="forgetmsg"></div>
+                <form action="{% url 'forget_pass'%}" id="forgetpass" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3 mx-4" style="margin-top: 40px;">
+                        <label for="forgetname" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="forgetname" name="name" placeholder="Enter name">
+                    </div>
+                    <div class="mb-3 mx-4">
+                        <label for="forgetemail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="forgetemail" name="email"
+                            placeholder="Enter your email">
+                    </div>
+                    <div class="text-end mt-5 mx-4 mb-3">
+                        <input type="submit" class="btn btn-success" value="Send Mail">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $(document).ready(function () {
+            $('#forgetpass').on('submit', function (event) {
+                event.preventDefault();
+                console.log('Form submitted')
+                var email = $('#forgetemail').val();
+                var name = $('#forgetname').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "forget_pass" %}',
+                    data: {
+                        'email': email,
+                        'name': name,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.forget1) {
+                            $('#forgetmsg').html('<div class="alert alert-danger">' + response.forget1 + '</div>');
+
+                        }
+                        if (response.forget2) {
+                            $('#forgetmsg').html('<div class="alert alert-success">' + response.forget2 + '</div>');
+
+                        }
+                        // Optionally, you can redirect to another page after successful signup
+                        // window.location.href = '/success/';
+                    },
+                    error: function (xhr, errmsg, err) {
+                        // Handle errors if any
+                        console.log(xhr.status + ' : ' + xhr.responseText);
+                    }
+                });[]
+            });
+        });
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

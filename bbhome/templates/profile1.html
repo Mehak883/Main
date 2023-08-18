@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+      
+        window.addEventListener('beforeunload', function(e) {
+            if (!localStorage.getItem('quizSubmitted')) {
+                e.preventDefault();
+                localStorage.setItem('quizSubmitted', 'true');
+                document.getElementById('question_form').submit();
+            }
+        });
+        </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        
+  <style>
+        .carousel-container {
+           
+            /* Adjust the height as needed */
+            overflow: hidden;
+        }
+
+        .carousel {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .carousel-window {
+            width: 100%;
+            height: 100%;
+            flex-shrink: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+     
+    .row-end {
+      display: flex;
+      justify-content: flex-end;
+    }
+.btn-light{
+    background-color: transparent;
+    border: transparent;
+}
+.btn-light:hover{
+    background-color: transparent;
+    border: transparent;
+}
+        /* Add any additional styling as per your requirements */
+    </style>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+    <div class="container text-center ">
+        <H2>QUIZ</H2>
+
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 id="timer"></h3>
+            </div>
+            <div class="col-md-6 row-end">
+                <input type="button" id="prevBtn" value="<" class="btn btn-light">
+                <input type="button" id="nextBtn" value=">" class="btn btn-light">
+              
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        var timeLeft = 600;  // Get the timer value from the backend
+        var timerElement = document.getElementById('timer');
+
+        function updateTimer() {
+            if (timeLeft <= 0) {
+                // Timer has expired
+                timerElement.innerHTML = "Time's up!";
+                // Perform necessary actions when the timer ends
+            } else {
+                var minutes = Math.floor(timeLeft / 60);
+                var seconds = timeLeft % 60;
+                timerElement.innerHTML = "Time Left : " + minutes + "m " + seconds + "s";
+                timeLeft--;
+                setTimeout(updateTimer, 1000);  // Update the timer every second
+            }
+        }
+
+        updateTimer();  // Start the timer
+    </script>
+    </div>
+
+    <div class="carousel-container">
+
+        <div class="carousel">
+            {% for i in ques %}
+            <div class="carousel-window">
+                <div class="container-fluid ">
+                    <table class="table table-light table-striped-columns mb-0">
+                        <tr>
+                            <th>que {{forloop.counter}}</th>
+                            <td>&nbsp;&nbsp;{{i.que}}</td>
+
+
+                        </tr>
+                    </table>
+                    <div class="container">
+                        <form action="{%url 'result'%}" method="post" id="question_form">
+                            {% csrf_token %}  
+                            <input type="hidden" name="q{{i.question_id}}" value="{{i.question_id}}">
+
+                            <input type="radio" name="ans{{i.question_id}}" value="{{i.a}}" id="ans1">
+                            <label for="ans1">A. {{i.a}}</label>
+
+                            <input type="radio" name="ans{{i.question_id}}" value="{{i.b}}" id="ans1">
+                            <label for="ans2">B. {{i.b}}</label>
+
+                            <input type="radio" name="ans{{i.question_id}}" value="{{i.c}}" id="ans3">
+                            <label for="ans1">C. {{i.c}}</label>
+
+                            <input type="radio" name="ans{{i.question_id}}" value="{{i.d}}" id="ans4">
+                            <label for="ans1">D. {{i.d}}</label>
+                            <input type="reset" value="reset">
+
+                            {% if forloop.counter == 3%}
+                            <input type="submit" value="submit test" >
+                            {%endif%}
+                        </form>
+                    </div>
+                </div><br>
+            </div>
+            {%endfor%}
+        </div>
+        <script>
+            const carousel = document.querySelector('.carousel');
+            const windows = document.querySelectorAll('.carousel-window');
+
+            let currentIndex = 0;
+
+            function showWindow(index) {
+                if (index < 0 || index >= windows.length) {
+                    return;
+                }
+
+                const windowWidth = windows[0].offsetWidth;
+                carousel.style.transform = `translateX(-${windowWidth * index}px)`;
+                currentIndex = index;
+            }
+
+            function showNextWindow() {
+                showWindow(currentIndex + 1);
+            }
+
+            function showPreviousWindow() {
+                showWindow(currentIndex - 1);
+            }
+
+            // Add event listeners to navigate through the carousel
+            document.addEventListener('DOMContentLoaded', () => {
+                showWindow(currentIndex);
+            });
+
+            // Example usage of navigation buttons
+            document.getElementById('nextBtn').addEventListener('click', showNextWindow);
+            document.getElementById('prevBtn').addEventListener('click', showPreviousWindow);
+
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz</title>
+  <link rel="stylesheet" href="{% static 'main.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+
+    }
+
+    .btn1 {
+      position: relative;
+      width: 200px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      letter-spacing: 2px;
+      border-top: 0.5px solid rgba(255, 255, 255, 0.35);
+      border-left: 0.5px solid rgba(255, 255, 255, 0.35);
+      padding-left: 62px;
+      transition: 0.5s;
+      overflow: hidden;
+    }
+
+    .btn1:hover {
+      padding-left: 5px;
+      padding-right: 40px;
+      color: rgba(255, 255, 255, 1)
+    }
+
+    .btn1 span {
+      position: absolute;
+      left: 5px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(to top left, whitesmoke, royalblue);
+      border-radius: 50%;
+      transition: 0.5s ease-in-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      justify-content: center;
+      color: #1a191d;
+      font-size: 1.5em;
+    }
+
+    .btn1:hover span {
+      left: calc(100% - 55px);
+    }
+
+    .btn1:after {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 100%;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.5);
+      transform: translateX(-170px) skewX(30deg);
+      transition: 0.75s ease-in-out;
+    }
+
+    .btn1:hover:after {
+      transform: translateX(170px) skewX(30deg);
+    }
+
+    /* Modal styles */
+    .carousel-container {
+
+      /* Adjust the height as needed */
+      overflow: hidden;
+    }
+
+    .carousel {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .carousel-window {
+      width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+
+    .row-end {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      background-color: aliceblue;
+
+    }
+
+    .btn-light {
+      background-color: transparent;
+      border: transparent;
+    }
+
+    .btn-light:hover {
+      background-color: transparent;
+      border: transparent;
+    }
+
+    .modal-content {
+      margin: 10px auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 700px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+
+    }
+
+    /* Button style */
+    .modal-button {
+      background-color: linear-gradient(to top left, whitesmoke, royalblue);
+      border-radius: 50%;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .bg1 {
+      box-shadow: inset 0px 2px 2px #4CAF50;
+      background: transparent;
+    }
+
+    .bg2 {
+      background: linear-gradient(to top left, whitesmoke, royalblue);
+    }
+
+    label {
+      display: inline-block;
+    }
+
+    .carousel-window .allque {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+  </style>
+</head>
+
+<body id="bd1">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <div id="modal" class="modal">
+    <div class="modal-content ">
+      <h1 style="color: rgb(255, 255, 255); font-weight: 500px;">Welcome to the Quiz!</h1>
+      <div style="text-align: justify; background-color: aliceblue;border-radius: 12px; padding: 12px;">
+        <ol style="color: rgb(0, 0, 0); font-size:10px ; ">
+          <li>
+            <b>Time Limit:</b> You will have a total of 10 minutes to complete the quiz. The timer will start as soon as
+            you
+            begin. <br><br>
+          </li>
+          <li>
+            <b>Number of Questions:</b> The quiz consists of 15 questions. Read each question carefully and select the
+            most
+            appropriate answer. <br><br>
+          </li>
+          <li>
+            <b>Answering Questions:</b> For multiple-choice questions, click on the option you think is correct.<br><br>
+          </li>
+          <li>
+            <b>Navigation:</b> You can navigate through the quiz using the "Next" and "Previous" buttons. Once you
+            complete all
+            the questions, click on the "Submit" button to finish. <br><br>
+          </li>
+          <li>
+            <b>Exiting the Quiz:</b> If you exit the quiz before completing all the questions, your progress will be
+            lost, and
+            you will be redirected to the result page. Make sure to complete the quiz within the given time. <br><br>
+          </li>
+          <li>
+            <b>Time Management:</b> Keep an eye on the timer to ensure you allocate enough time to answer all the
+            questions.
+            Remember, unanswered questions will not be scored. <br><br>
+          </li>
+          <li>
+            <b>Scoring:</b> Each correct answer will earn you one point. There is no negative marking for incorrect or
+            unanswered questions. <br><br>
+          </li>
+          <li>
+            <b>Result Page:</b> After submitting your quiz or if you choose to exit, you will be redirected to the
+            result page,
+            where you can view your score and see how you performed. <br><br>
+
+            <h6>Good luck with the quiz! If you're ready, click the "Start" button to begin.</h6>
+          </li>
+
+        </ol>
+      </div>
+
+      <!-- <p style="color: whitesmoke;">Click the "Start Quiz" button to begin.</p> -->
+      <div class="py-2">
+        <a href="#" class="btn1" id="startz" onclick="startQuiz()">Start<span><svg xmlns="http://www.w3.org/2000/svg"
+              width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+            </svg></span></a>
+      </div>
+    </div>
+  </div>
+
+  <div id="quiz-container" style="display:none">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <h3 id="timer"></h3>
+        </div>
+        <div class="col-md-6 row-end">
+          <input type="button" id="prevBtn" value="<" class="btn btn-light">
+          <input type="button" id="nextBtn" value=">" class="btn btn-light">
+        </div>
+      </div>
+    </div>
+    <form action="{%url 'result'%}" method="post" id="question_form">
+      {% csrf_token %}
+
+      <div class="carousel-container">
+
+        <div class="carousel">
+          {% for i in ques %}
+          <div class="carousel-window">
+            <div class="container-fluid allque">
+              <div class="items" style="display: block; background-color: #4CAF50;">
+                que {{forloop.counter}}
+                &nbsp;&nbsp;{{i.que}}
+              </div>
+             
+              <input type="hidden" class="form-check-input" name="q{{forloop.counter}}" value="{{i.question_id}}">
+              <div class="form-check">
+                <input type="radio" class="form-check-input" name="ans{{forloop.counter}}" value="A" id="ansa{{forloop.control}}">
+                <label class="form-check-label" for="ansa{{forloop.counter}}">A. {{i.a}}</label>
+              </div>
+              <div class="form-check">
+                <input type="radio" name="ans{{forloop.counter}}" value="B" id="ansb{{forloop.counter}}">
+                <label for="ansb{{forloop.counter}}">B. {{i.b}}</label>
+              </div>
+              <div class="items">
+                <input type="radio" name="ans{{forloop.counter}}" value="C" id="ansc{{forloop.counter}}">
+                <label for="ansc{{forloop.counter}}">C. {{i.c}}</label>
+              </div>
+              <div class="items">
+                <input type="radio" name="ans{{forloop.counter}}" value="D" id="ansd{{forloop.counter}}">
+                <label for="ansd{{forloop.counter}}">D. {{i.d}}</label>
+              </div>
+              <div class="items">
+                <input type="reset" value="reset">
+                {% if forloop.counter == 3%}
+                <input type="submit" value="submit test">
+                {%endif%}
+              </div>
+
+            </div><br>
+          </div>
+          {%endfor%}
+        </div>
+
+
+      </div>
+
+      <input type="hidden" name="time" value="" id="backtime">
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+      var timeLeft = 600;  // Get the timer value from the backend
+      var timerElement = document.getElementById('timer');
+
+      function updateTimer() {
+        var countdownMinutes = 10;
+        var timerElement = document.getElementById('timer');
+        var backtime = document.getElementById('backtime');
+        var endTime = Date.now() + countdownMinutes * 60 * 1000;
+        var timer = setInterval(function () {
+          var currentTime = Date.now();
+          var remainingTime = endTime - currentTime;
+          if (remainingTime <= 0) {
+            clearInterval(timer);
+            timerElement.innerHTML = "Time's up!";
+          } else {
+            var minutes = Math.floor(remainingTime / (60 * 1000));
+            var seconds = Math.floor((remainingTime % (60 * 1000)) / 1000);
+
+            timerElement.innerHTML = "Time Left : " + minutes + "m " + seconds + "s";
+
+          }
+          backtime.value = remainingTime;
+          console.log(backtime.value)
+
+
+        }, 1000);
+
+      }
+
+
+      function startQuiz() {
+        updateTimer();  // Start the timer
+        var modal = document.getElementById('modal');
+        var bd1 = document.getElementById('bd1');
+        var quizContainer = document.getElementById('quiz-container');
+
+        // Hide the modal and show the quiz container
+        modal.style.display = 'none';
+        quizContainer.style.display = 'block';
+        quizContainer.style.backgroundColor = 'white'
+        bd1.style.backgroundColor = 'white';
+
+        // Enter full-screen mode
+
+        if (quizContainer.requestFullscreen) {
+          quizContainer.requestFullscreen();
+        } else if (quizContainer.mozRequestFullScreen) {
+          quizContainer.mozRequestFullScreen();
+        } else if (quizContainer.webkitRequestFullscreen) {
+          quizContainer.webkitRequestFullscreen();
+        } else if (quizContainer.msRequestFullscreen) {
+          quizContainer.msRequestFullscreen();
+        }
+
+        // Start the timer for 10 minutes
+        setTimeout(finishQuiz, 1 * 60 * 1000); // 10 minutes = 10 * 60 seconds * 1000 milliseconds
+      }
+      function submitQuiz() {
+        var quizForm = document.getElementById('question_form');
+        quizForm.submit();
+      }
+      document.addEventListener('fullscreenchange', function (event) {
+        if (!document.fullscreenElement) {
+          // User exited fullscreen mode
+          submitQuiz();
+        }
+      });
+      function finishQuiz() {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+        var quizForm = document.getElementById('question_form');
+
+        quizForm.submit();
+      }
+
+
+
+
+      // Display the modal when the page is loaded
+      window.onload = function () {
+        var modal = document.getElementById('modal');
+        modal.style.display = 'block';
+      };
+
+      const carousel = document.querySelector('.carousel');
+      const windows = document.querySelectorAll('.carousel-window');
+
+      let currentIndex = 0;
+
+      function showWindow(index) {
+        if (index < 0 || index >= windows.length) {
+          return;
+        }
+
+        const windowWidth = windows[0].offsetWidth;
+        carousel.style.transform = `translateX(-${windowWidth * index}px)`;
+        currentIndex = index;
+      }
+
+      function showNextWindow() {
+        showWindow(currentIndex + 1);
+      }
+
+
+      function showPreviousWindow() {
+        showWindow(currentIndex - 1);
+      }
+
+      // Add event listeners to navigate through the carousel
+      document.addEventListener('DOMContentLoaded', () => {
+        showWindow(currentIndex);
+      });
+
+      // Example usage of navigation buttons
+      document.getElementById('nextBtn').addEventListener('click', showNextWindow);
+      document.getElementById('prevBtn').addEventListener('click', showPreviousWindow);
+
+
+    </script>
+</body>
+
+</html>

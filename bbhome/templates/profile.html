@@ -1,0 +1,539 @@
+{%extends 'main.html'%}
+{% block title%}
+BB-Profile
+{%endblock%}
+{%block signup%}
+<div class="flex-shrink-0  ml-3">
+  <a href="{%url 'profile'%}" class="d-block link-body-emphasis text-decoration-none " aria-expanded="false">
+    <img src="{{myprofile.user_profile_image.url}}" alt="profile" width="32" height="32" class="rounded-circle">
+  </a>
+</div>
+<div class="ml-3">
+<a href="{% url 'logout' %}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+  <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+</svg></a>
+</div>
+{%endblock%}
+{%block class%} class="bg1"{%endblock%}
+
+{%block crousel%}
+
+<style>
+  /* CSS for the scrollable div */
+  .scrollable-div {
+    height: 300px;
+    /* Set the desired height for the scrollable div */
+    overflow: auto;
+  }
+  table{
+    
+  position: relative;
+  top:50%;
+  /* left: 3%; */
+    /* transform: translate(-50%,-50%); */
+    border-collapse: collapse;
+    width: 900px;
+    height: 100px;
+    border:1px solid grey;
+    box-shadow: 2px 2px 12px rgba(0,0,0,0.2), -1px -1px 8px rgba(0,0,0,0.2);
+  }
+  tr{
+    transition: all .2s ease-in;
+    cursor: pointer;
+    border-radius:10px;
+  }
+  th,td{
+    padding: 12px;
+    text-align: left;
+  
+    /* border-bottom: 1px solid #ddd; */
+  }
+  #header{
+    background-color: rgb(53, 38, 136);
+    color:#ffffff;
+
+  }
+  tr:hover{
+    background-color: rgb(223, 194, 249);
+    color: #000000;
+    transform: scale(1.02);
+    box-shadow: 2px 2px 12px rgba(0,0,0), -1px -1px 8px rgba(0,0,0,0.2);
+  }
+  @media only screen and (max-width: 768px){
+    table{
+      width:90%;
+    }
+  }
+  /* h1{
+    font-weight: 600;
+    text-align: center;
+    background-color: #16a085;
+    color: #fff;
+    padding: 10px 0px;
+  } */
+</style>
+
+<!-- Navbar on small screens -->
+
+<!-- Page Container -->
+<div class="w3-container w3-content blur-background" style="max-width:1600px;margin-top:40px">
+  <!-- The Grid -->
+  <div class="w3-row">
+    <!-- Left Column -->
+    <div class="w3-col m3">
+      <!-- Profile -->
+      <div class="w3-card w3-round w3-white ">
+        <div class="w3-container">
+
+          <h5 id="response-message"></h5>
+
+          <p class="w3-center py-2"><img src="{{myprofile.user_profile_image.url}}" id="uploadimage" class="w3-circle"
+              style="height:106px;width:106px" alt="Avatar"></p>
+          <div class="w3-center pl-1 py-0 ">
+            <div class="d-grid gap-2 d-md-block">
+              <form method="post" action="{%url 'upload' %}" id="uploadpic" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="profile_image">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    class="bi bi-camera " viewBox="0 0 16 16">
+                    <path
+                      d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                    <path
+                      d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                  </svg>
+                </label>
+                <input type="file" id="profile_image" name="profile_image" data-bs-toggle="collapse"
+                  data-bs-target="#picchange"  aria-expanded="false" aria-controls="collapseExample"
+                  style="display: none;border: none;">
+                <div class="collapse" id="picchange">
+                  <div class="card card-body">
+                    <div class="d-grid gap-2 d-md-block">
+                      <button type="submit" id="subpic" class="btn btn-light">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="color: rgb(0, 77, 0);" width="16" height="16"
+                          fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                          <path
+                            d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                        </svg>
+                      </button>
+                      <button class="btn btn-light" onclick="closeCollapse()">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="color: rgb(169, 0, 0);" width="16" height="16"
+                          fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                          <path
+                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+          <!-- Modal -->
+
+
+          <hr>
+          <div class="row">
+            <div class="col-6">
+              <h5 style="color: darkblue;"> Personal Details</h5>
+            </div>
+            <div class="col-6 text-right">
+              <button type="button" class="btn btn-light " data-bs-toggle="modal" data-bs-target="#exampleModal"
+                style="background-color: transparent;border: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          {%if myprofile.first_name%}
+          <p> <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"> </i><span
+              id="name">{{myprofile.first_name|title}} {{myprofile.last_name|title}}</span></p>
+            {%else%}
+            <p> <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"> </i><span
+              id="name">Fullname</span></p>
+              {%endif%}
+          {%if myprofile.email%}
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i><span
+              id="email">{{myprofile.email}}</span></p>
+              {%else%}
+              <p><i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i><span
+                id="email">Email</span></p>
+              {%endif%}
+              {%if mycred.city%}
+          <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><span id="address">{{mycred.city| title}},
+              {{mycred.country|title}}</span></p>
+              {%else%}
+              <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><span id="address">City,Country</span></p>
+              {%endif%}
+        </div>
+      </div>
+      <br>
+
+
+      <!-- Profile -->
+      <div class="w3-card w3-round w3-white">
+        <div class="w3-container">
+          <div class="row">
+            <div class="col-8">
+              <h5 style="color: darkblue;"> Education Details</h5>
+            </div>
+            <div class="col-4 text-right">
+              <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#education"
+                style="background-color: transparent;border:none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        {%if mycred.education%}
+        <p style="padding-left: 15px;"><i class="fa fa-book fa-fw w3-margin-right w3-text-theme"></i><span
+            id="educationContent">{{mycred.education|upper}}</span></p>
+            {%else%}
+            <p style="padding-left: 15px;"><i class="fa fa-book fa-fw w3-margin-right w3-text-theme"></i><span
+              id="educationContent">Education</span></p>
+            {%endif%}
+            {%if mycred.ins_name%}
+        <p style="padding-left: 15px;"><i class="fa fa-building fa-fw w3-margin-right w3-text-theme"></i><span
+            id="insNameContent">{{mycred.ins_name|title }}</span></p>
+            {%else%}
+            <p style="padding-left: 15px;"><i class="fa fa-building fa-fw w3-margin-right w3-text-theme"></i><span
+              id="insNameContent">Institute</span></p>
+            {%endif%}
+            {%if mycred.ecountry%}
+        <p style="padding-left: 15px;"><i class="fa fa-flag fa-fw w3-margin-right w3-text-theme"></i><span
+            id="eCountryContent">{{mycred.ecountry|title }}</span></p><br>
+            {%else%}
+            <p style="padding-left: 15px;"><i class="fa fa-flag fa-fw w3-margin-right w3-text-theme"></i><span
+              id="eCountryContent">Country</span></p><br>
+            {%endif%}
+      </div>
+
+
+
+    </div>
+
+    <div class="w3-col m9 w3-right">
+
+      <div class="w3-row-padding">
+        <div class="w3-col m12">
+          <div class="w3-card w3-round  w3-white">
+            <div class="w3-container w3-padding">
+              <h6 style="color: darkblue;">Bio</h6>
+              {% if mycred.bio %}
+              <p class=" w3-padding text-justify"
+                style="font-weight:600;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+                id="bioContent">{{mycred.bio}}</p>
+                {%else%}
+                <p class=" w3-padding text-justify"
+                style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+                id="bioContent">Enter your bio here</p>
+                {%endif%}
+              <button type="button" class="btn btn-light " data-bs-toggle="modal" data-bs-target="#bioModal"
+                style="background-color: transparent;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <br> -->
+    <div class="w3-col m9 w3-right " style="margin-top: 20px;">
+
+      <div class="w3-row-padding">
+        <div class="w3-col m12">
+          <div class="w3-card  w3-round w3-white scrollable-div" style="height: 400px;">
+            <div class="w3-container w3-padding">
+              <h1 class="text-center" style="color: darkblue;text-shadow: 0 10px 15px rgba(0,0,0,.3)">Educational Summary</h1>
+              <div class="my-3">
+                <div class="container">
+                  <div class="row text-center">
+                    <div class="col-md-3" style="border-color: rgb(197, 255, 197) !important; 
+                      box-shadow: rgba(0, 0, 0, .24) 0px 3px 15px;background-color: rgb(255, 174, 174); border-radius: 15px;">
+                      <H3 style="color: rgb(99, 0, 0);text-shadow: 0 10px 15px rgba(0,0,0,.3)" class="py-3">Overall Rank - {{myrank.rank}}</H3>
+                    </div>
+                    <div class="col-md-6"></div>
+                    <div class="col-md-3 " style="border-color: rgb(227, 210, 210) !important; 
+                        box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;background-color: rgb(255, 255, 135); border-radius: 15px;">
+                      <H3 style="color: rgb(0, 0, 0); text-shadow: 0 10px 15px rgba(0,0,0,.3)" class="py-3" >Coins - 
+                        {{myrank.gift_coins}} <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                          <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                          <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                        </svg>
+                    </div>
+                  </div>
+                  <div class="container-fluid my-3">
+<table>
+  <tr id="header">
+    <th>Result Id</th>
+    <th>Quiz</th>
+    <th>Percentage</th>
+    <th>Coins</th>
+    <th>Date</th>
+    <th>Time</Th>
+
+  </tr>
+  {% for i in mypoint%}
+
+  <tr>
+    <td><a href="/bbresult/{{i.resultid}}/{{i.total_que}}" style="color: black;">{{i.resultid}}</a></td>
+    <td >{{i.type}}</td>
+    <td>{{i.point}}%</td>
+    <td>{{i.coins}}</td>
+    <td>{{i.date}}</td>
+    <td>{{i.time}}</td>
+ 
+
+  </tr>
+  {%endfor%}
+</table>
+</div>
+                </div>
+
+        
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Left Column -->
+    </div>
+  </div>
+  <div class="w3-container w3-content blur-background" style="max-width:1600px;">
+  </div>
+
+</div>
+
+{%endblock%}
+{%block modal%}
+
+<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog bg1">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: whitesmoke;">Edit Personal Details</h1>
+        <button type="button" class="close text-light" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{%url 'intro' %}" id="introform">
+          {% csrf_token %}
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="fname" id="fname" placeholder=" "
+              value="{{myprofile.first_name}}" style="background: whitesmoke;">
+            <label for="fname" style="color: rgb(0, 0, 0);">Firstname </label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control " id="lname" name="lname" placeholder=" "
+              value="{{myprofile.last_name}}" style="background: whitesmoke;">
+            <label for="lname" style="color: rgb(0, 0, 0);">Lastname</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="city" id="city" placeholder=" " value="{{mycred.city}}"
+              style="background:whitesmoke;">
+            <label for="city" style="color: rgb(0, 0, 0);">city</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="country" id="country" placeholder=" "
+              value="{{mycred.country}}" style="background: whitesmoke;">
+            <label for="country" style="color: rgb(0, 0, 0);">country</label>
+          </div>
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-light" data-bs-dismiss="modal">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="education" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: whitesmoke;">Edit Education details </h1>
+        <button type="button" class="close text-light" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="eduform" method="post" action="{%url 'edu'%}">
+          {% csrf_token %}
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="education" id="education" placeholder=" "
+              value="{{mycred.education}}" style="background:whitesmoke;">
+            <label for="fname">Education </label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="ins_name" id="institute" placeholder=" "
+              value="{{mycred.ins_name}}" style="background: whitesmoke;">
+            <label for="country">Institute</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="ecountry" id="ecountry" placeholder=" "
+              value="{{mycred.ecountry}}" style="background: whitesmoke;">
+            <label for="country">Country</label>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-light" data-bs-dismiss="modal">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="bioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Bio</h1>
+        <button type="button" class="close text-light" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url  'bioset'%}" id="bioform" method="post">
+          {% csrf_token %}
+          <div class="form-floating">
+            <textarea class="form-control" name="bio" placeholder="Leave a comment here"
+              id="floatingTextarea">{{mycred.bio}}</textarea>
+            <label for="floatingTextarea">Bio</label>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-light" data-bs-dismiss="modal">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+
+
+
+
+  document.getElementById("bioform").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    var formData = new FormData(this);
+    var xhr = new XMLHttpRequest();
+
+
+    xhr.open("POST", "{% url 'bioset' %}");
+    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+
+        var response = JSON.parse(xhr.responseText);
+
+        var bioContent = response.bio;
+        document.getElementById("bioContent").textContent = bioContent;
+      } else {
+        console.log('it is fail');
+      }
+    };
+    xhr.send(formData);
+  });
+
+
+
+  document.getElementById("eduform").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    var formData = new FormData(this);
+    var xhr = new XMLHttpRequest();
+
+
+    xhr.open("POST", "{% url 'edu' %}");
+    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+
+        var response = JSON.parse(xhr.responseText);
+
+        var education = response.education;
+        var insName = response.ins_name;
+        var eCountry = response.ecountry;
+
+        document.getElementById("educationContent").textContent = education;
+        document.getElementById("insNameContent").textContent = insName;
+        document.getElementById("eCountryContent").textContent = eCountry;
+
+      } else {
+        console.log('it is fail');
+      }
+    };
+    xhr.send(formData);
+  });
+
+
+
+
+  document.getElementById("introform").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    var formData = new FormData(this);
+    var xhr = new XMLHttpRequest();
+
+
+    xhr.open("POST", "{% url 'intro' %}");
+    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+
+        var response = JSON.parse(xhr.responseText);
+
+        var fname = response.fname;
+        var lname = response.lname;
+        var city = response.city;
+        var country = response.country;
+
+        document.getElementById("name").textContent = fname + ' ' + lname;
+        document.getElementById("address").textContent = city + ', ' + country;
+
+      } else {
+        console.log('it is fail');
+      }
+    };
+    xhr.send(formData);
+  });
+</script>
+
+
+{% endblock %}

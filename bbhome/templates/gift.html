@@ -1,0 +1,395 @@
+{%extends 'main.html'%}
+{%load static%}
+{%block signup%}
+<div class="flex-shrink-0  ml-3">
+  <a href="{%url 'profile'%}" class="d-block link-body-emphasis text-decoration-none " aria-expanded="false">
+    <img src="{{myprofile.user_profile_image.url}}" alt="profile" width="32" height="32" class="rounded-circle">
+  </a>
+</div>
+<div class="ml-3">
+  <a href="{% url 'logout' %}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+    <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+  </svg></a>
+  </div>
+{%endblock%}
+{%block gift%}
+
+
+<style>
+  /* .bg1 {
+    background-color: white !important;
+  } */
+
+  .cs {
+    box-shadow: rgba(0, 0, 0, .24) 2px 3px 8px;
+  }
+  .bld7{
+      /* font-weight: bold !important; */
+     text-decoration: underline !important;
+    } 
+
+  .button1 {
+    border-radius: 20px !important;
+    border-color: rgb(184, 222, 255);
+
+    background-color: transparent !important;
+  }
+
+  .button1:hover {
+    background: linear-gradient(to bottom, rgb(223, 208, 255), rgb(204, 184, 222)) !important;
+  }
+</style>
+<div class="container" id="gift_msg"></div>
+<div class="row p-4">
+  {% for i in gift %}
+  <div class="col-md-3 mb-3">
+    <div class="card cs" style="width: 18rem;">
+      <img src="{{i.gift_pic.url}}" class="card-img-top" alt="...">
+      <div class="card-body bg1">
+        <h6 class="card-title" >{{i.gname}}</h6>
+        <h6 class="card-subtitle mb-2">
+          Price : &#8377;{{i.price}}</h6>
+        {%if i.points_needed != 0 %}
+        <p class="card-text">Coins : {{i.points_needed}}</p>
+        {%endif%}
+        {%if i.rank_needed != 0 %}
+        <p class="card-text">Rank : {{i.rank_needed}}</p>
+        {%endif%}
+
+        <form action="{% url 'gift'%}" id="{{i.gift_id}}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="id" id="i{{i.gift_id}}" value="{{i.gift_id}}">
+          <div class="d-grid gap-2 col-6 mx-auto ">
+
+            <input class="button1" type="submit" data-bs-toggle="modal" value="Get it">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+
+    $(document).ready(function () {
+      $('#{{i.gift_id}}').on('submit', function (event) {
+        event.preventDefault();
+        console.log('Form submitted')
+        var gift_id = $('#i{{i.gift_id}}').val();
+
+        $.ajax({
+          type: 'POST',
+          url: '{% url "gift" %}',
+          data: {
+            'gift_id': gift_id,
+
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+          },
+          dataType: 'json',
+          success: function (response) {
+            if (response.msg1) {
+              $('#gift_msg').html('<div class="alert alert-danger alert-dismissible fade show my-3" role="alert"> ' + response.msg1 + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' + '</div>');
+            }
+            if (response.open) {
+              console.log('hjkl');
+              $('#giftidget').val(response.gift_id);
+              
+              console.log("qwerty "+ $('#giftidget').val());
+            
+              // Open the modal only when response.msg1 is None
+              $('#exampleModalToggle').modal('show');
+            }
+            // Optionally, you can redirect to another page after successful signup
+            // window.location.href = '/success/';
+          },
+          error: function (xhr, errmsg, err) {
+            // Handle errors if any
+            console.log(xhr.status + ' : ' + xhr.errmsg);
+          }
+        });[]
+      });
+    });
+
+
+  </script>
+  {%endfor%}
+</div>
+<!-- <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Open first modal</a> -->
+
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+  tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered " style="width: 350px;">
+    <div class="modal-content">
+
+      <div class="modal-header" style="background-color: aliceblue;">
+        <h5 class="modal-title" id="exampleModalToggleLabel">Phone Verfication</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="background-color: aliceblue;">
+
+        <form method="post" id="otp_phone" action="{% url 'send_otp'%}">
+          {% csrf_token%}
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="1234567890"  pattern="[0-9]{10}">
+            <label for="phone">Phone Number</label>
+          </div>
+          <div class="d-grid d-md-flex justify-content-end mb-3">
+            <input type="submit" class="btn btn-success" onclick="validatePhoneNumber()" value="Send OTP"
+            data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">
+          </div>
+          
+        
+        </form>
+        <script>
+          function validatePhoneNumber() {
+            const phoneNumber = document.getElementById('phone').value;
+            const cleanNumber = phoneNumber.replace(/\D/g, '');
+            const regex = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
+            const isValid = regex.test(cleanNumber);
+
+            if (isValid) {
+              console.log('valid')
+            } else {
+              alert('Please enter a valid phone number!');
+            }
+          }
+        </script>
+      </div>
+      <div class="modal-footer" style="background-color: aliceblue;">
+  
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+  tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
+    <div class="modal-content">
+
+      <div class="modal-header" style="background-color: aliceblue;">
+        <h5 class="modal-title" id="exampleModalToggleLabel2">Verify OTP</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="background-color: aliceblue;">
+        <div id="phone_validate">
+
+        </div>
+        <form action="{% url 'verify_otp' %}" id="otpv" method="post">
+          {% csrf_token %}
+          <input type="text" id="phone1" name="phone1" pattern="[0-9]{10}" style="display: none;">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="otp1" name="otp1" placeholder="0000">
+            <label for="otp1">OTP</label>
+          </div>
+
+          <div class="d-grid d-md-flex justify-content-end mb-3">
+            <input class="btn btn-success" type="submit" value="Verify OTP" data-dismiss="modal">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" style="background-color: aliceblue;">
+      
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3"
+  tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: aliceblue;">
+        <h5 class="modal-title" id="exampleModalToggleLabel3">Enter your address</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="background-color: aliceblue;">
+        <form action="{%url 'add_address'%}" id="address" method="post">
+          {%csrf_token%}
+          <input type="hidden" id="giftidget" name="gift_id">
+          <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="pincode"  placeholder="Enter Pin Code">
+          <label for="pincode">Pincode</label>
+          </div>
+          <div class="form-floating mb-4">
+          <select id="detailsSelect" class="form-select" style="color: black;" aria-label="Floating label select example" name="addr"></select>
+          <label for="detailsSelect">Select your address</label>
+          </div>
+          <div class="d-grid d-md-flex justify-content-end mb-3">
+            <button class="btn btn-success" type="submit" data-bs-dismiss="modal">Order It</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" style="background-color: aliceblue;">
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.getElementById('phone').addEventListener('input', function () {
+    document.getElementById('phone1').value = this.value;
+  });
+
+  $(document).ready(function () {
+    $('#otp_phone').on('submit', function (event) {
+      event.preventDefault();
+      console.log('Form submitted')
+      var phone = $('#phone').val();
+
+      $.ajax({
+        type: 'POST',
+        url: '{% url "send_otp" %}',
+        data: {
+          'phone': phone,
+
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function (response) {
+          if (response.phone_v) {
+            $('#phone_validate').html('<div class="alert alert-danger alert-dismissible fade show my-3" role="alert"> ' + response.phone_v + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' + '</div>');
+          }
+          if (response.message) {
+            console.log('hjkl');
+            // Open the modal only when response.msg1 is None
+            $('#phone_validate').html('<div class="alert alert-success alert-dismissible fade show my-3" role="alert"> ' + response.message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' + '</div>');
+
+          }
+          if (response.message2) {
+            console.log('hjkl');
+            // Open the modal only when response.msg1 is None
+            $('#phone_validate').html('<div class="alert alert-danger alert-dismissible fade show my-3" role="alert"> ' + response.message2 + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' + '</div>');
+
+          }
+          // Optionally, you can redirect to another page after successful signup
+          // window.location.href = '/success/';
+        },
+        error: function (xhr, errmsg, err) {
+          // Handle errors if any
+          console.log(xhr.status + ' : ' + xhr.errmsg);
+        }
+      });[]
+    });
+  });
+
+
+
+
+  $(document).ready(function () {
+    $('#otpv').on('submit', function (event) {
+      event.preventDefault();
+      console.log('Form submitted')
+      var phone1 = $('#phone1').val();
+      var otp1 = $('#otp1').val();
+
+      $.ajax({
+        type: 'POST',
+        url: '{% url "verify_otp" %}',
+        data: {
+          'phone1': phone1,
+          'otp1': otp1,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function (response) {
+          if (response.otp_not) {
+            $('#phone_validate').html('<div class="alert alert-danger alert-dismissible fade show my-3" role="alert"> ' + response.otp_not + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' + '</div>');
+          }
+          else if (response.phn_open) {
+            $('#exampleModalToggle2').modal('hide');
+            $('#exampleModalToggle3').modal('show');
+
+          }
+          // Optionally, you can redirect to another page after successful signup
+          // window.location.href = '/success/';
+        },
+        error: function (xhr, errmsg, err) {
+          // Handle errors if any
+          console.log(xhr.status + ' : ' + xhr.errmsg);
+        }
+      });[]
+    });
+  });
+
+
+
+</script>
+
+<script>
+  function populateDetailsSelect(details) {
+    var detailsSelect = document.getElementById("detailsSelect");
+    detailsSelect.innerHTML = "";
+
+    if (details && details[0] && details[0].PostOffice) {
+      var postOffices = details[0].PostOffice;
+
+      postOffices.forEach(function (postOffice) {
+        var option = document.createElement("option");
+        var optionText = postOffice.Name + ", " + postOffice.District + ", " + postOffice.State + ", " + postOffice.Country;
+        option.text = optionText;
+        detailsSelect.add(option);
+      });
+    } else {
+      var option = document.createElement("option");
+      option.text = "No data available for the pin code.";
+      detailsSelect.add(option);
+    }
+  }
+
+  document.getElementById("pincode").addEventListener("input", function () {
+    var pincode = this.value;
+
+    fetch("https://api.postalpincode.in/pincode/" + pincode)
+      .then(response => response.json())
+      .then(data => {
+        populateDetailsSelect(data);
+      })
+      .catch(error => {
+        var detailsSelect = document.getElementById("detailsSelect");
+        detailsSelect.innerHTML = "Error occurred while fetching data: " + error;
+      });
+  });
+</script>
+
+
+<script>
+  $(document).ready(function () {
+    $('#address').on('submit', function (event) {
+      event.preventDefault();
+      console.log('Form submitted')
+      var gift_id=$('#giftidget').val();
+      var pincode = $('#pincode').val();
+      var addr = $('#detailsSelect').val();
+
+      $.ajax({
+        type: 'POST',
+        url: '{% url "add_address" %}',
+        data: {
+          'gift_id':gift_id,
+          'pincode': pincode,
+          'addr': addr,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function (response) {
+
+            
+          if (response.address1) {
+            $('#exampleModalToggle2').modal('hide');
+            $('#gift_msg').html('<div class="alert alert-Success alert-dismissible fade show my-3" role="alert"> ' + response.address1 + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' + '</div>');
+          }
+        },
+        error: function (xhr, errmsg, err) {
+          // Handle errors if any
+          console.log(xhr.status + ' : ' + xhr.errmsg);
+        }
+      });[]
+    });
+  });
+</script>
+
+
+<!-- Modal -->
+
+{%endblock%}

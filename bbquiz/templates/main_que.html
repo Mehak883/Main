@@ -1,0 +1,249 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{%block title%}{% endblock%}</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'main_que1.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" type="text/css"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+    
+    <body style="background-image:linear-gradient(to left bottom, rgb(255, 255, 255),rgb(255, 246, 246));">
+  <nav class="navbar sticky-top navbar-expand-lg ">
+
+    <div class="container-fluid ">
+      <img
+        src="https://static.vecteezy.com/system/resources/previews/004/698/023/original/the-initial-letter-bb-logo-design-free-vector.jpg"
+        alt="Bootstrap" width="30" height="24">
+      <a class="navbar-brand mb-0 h1 " href="#"
+        style="color : rgb(255,255,255) ;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">&nbsp;BrainBlaze</a>
+      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/home_que">Home</a>
+          </li>
+          <a class="nav-link" href="{%url 'add_gifts'%}">Add vouchers</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle  " href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Questions
+            </a>
+            <ul class="dropdown-menu  ">
+              <li><a class=" dropdown-item" href="/create_ques">Add Question</a></li>
+              <li><a class="dropdown-item " href='/display_bbques'>Display Questions</a></li>
+              <!-- <li><a class="dropdown-item" href="/display_bbques">Edit Question</a></li>
+                  <li><a class="dropdown-item" href="/display_bbques">Delete Question</a></li> -->
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'queries'%}">Queries</a>
+
+
+          </li>
+
+        </ul>
+        {% block signup %}
+        {%endblock%}
+      </div>
+    </div>
+  </nav>
+
+ 
+    <!-- <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    
+    <div class="modal fade" id="loginSignupModal" tabindex="-1" role="dialog" aria-labelledby="loginSignupModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header" >
+            <h5 class="modal-title" id="loginSignupModalLabel">Login / Signup</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="loginSignupTabs" role="tablist">
+              <li class="nav-item col-6">
+                <a class="nav-link active" id="loginTab" data-toggle="tab" href="#loginContent" role="tab" aria-controls="loginContent" aria-selected="true">Login</a>
+              </li>
+              <li class="nav-item col-6">
+                <a class="nav-link" id="signupTab" data-toggle="tab" href="#signupContent" role="tab" aria-controls="signupContent" aria-selected="false">Signup</a>
+              </li>
+            </ul>
+            <div class="tab-content mt-2" id="loginSignupTabContent">
+              <div class="tab-pane fade show active" id="loginContent" role="tabpanel" aria-labelledby="loginTab">
+                <!-- Login form goes here -->
+                <div class="container">
+                  <div id="loginmsg">
+                  </div>
+                </div>
+                <form action="{url 'login_que1'}" method="post" id="formlogin">
+                  {% csrf_token %}
+
+                  <div class="form-group">
+
+                    <label for="loginEmail">Email</label>
+                    <input type="text" class="form-control" name="loginEmail" required id="loginEmail" placeholder="Enter Email">
+                  </div>
+                  <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" class="form-control" name="loginPassword" required id="loginPassword" placeholder="Enter password">
+                  </div>
+                  <button type="submit" class="btn btn-custom">Login</button>
+                </form>
+                <div style="padding-top: 5px;" class="text-end">
+                  <a href="{% url 'forget_pass'%}" style="font-size: 13px; color: rgb(0, 0, 0);"><b>Forget Password?</b></a>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="signupContent" role="tabpanel" aria-labelledby="signupTab">
+                <!-- Signup form goes here -->
+                <div class="container">
+                  <div id="msg">
+                  </div>
+                </div>
+                <form action="{url 'signup_que'}" method="post" id="formsign"> 
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="firstname">Firstname</label>
+                    <input type="text" class="form-control" name="firstname" id="firstname" required placeholder="Enter firstname">
+                  </div>
+                  <div class="form-group">
+                    <label for="lastname">Lastname</label>
+                    <input type="text" class="form-control" name="lastname" id="lastname" required placeholder="Enter lastname">
+                  </div>
+                  <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" class="form-control" name="signupEmail" id="signupEmail" required placeholder="Enter email">
+                  </div>
+                  <!-- <div class="form-group">
+                    <label for="signupEmail">Employee Id</label>
+                    <input type="text" class="form-control" name="signupEmployeeId"  id="signupEmployeeId" required placeholder="Enter employee id">
+                  </div> -->
+                  <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" class="form-control" name="signupPassword" id="signupPassword" required placeholder="Enter password">
+                  </div>
+  
+  
+                  <button type="submit" class="btn btn-custom">Signup</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    {% block crousel%}
+    {% endblock %}
+
+  {%block card%}
+  {%endblock%}
+  {%block quesform%}
+  {%endblock%}
+  {%block display_bbques%}
+  {%endblock%}
+  {%block edit_bbques%}
+  {%endblock%}
+  
+<script>
+ $(document).ready(function () {
+      $('#formlogin').on('submit', function (event) {
+        event.preventDefault();
+        console.log('Form submitted')
+        var email = $('#loginEmail').val();
+        var password = $('#loginPassword').val();
+
+        $.ajax({
+          type: 'POST',
+          url: '{% url "login_que1" %}',
+          data: {
+            'email': email,
+            'password': password,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+          },
+          dataType: 'json',
+          success: function (response) {
+            if (response.success==='Account Verified'){
+                setTimeout(() => {
+                  window.location.href='/home_que'
+                }, 500);
+            }
+            else{
+            $('#loginmsg').html('<div class="alert alert-danger">' + response.error + '</div>');
+
+            }
+            // Optionally, you can redirect to another page after successful signup
+            // window.location.href = '/success/';
+          },
+          error: function (xhr, errmsg, err) {
+            // Handle errors if any
+            console.log(xhr.status + ' : ' + xhr.responseText);
+          }
+        });[]
+      });
+    });
+
+
+
+
+
+
+  $(document).ready(function () {
+    $('#formsign').on('submit', function (event) {
+      event.preventDefault();
+      console.log('Form submitted')
+      var firstname = $('#firstname').val();
+      var lastname = $('#lastname').val();
+      var email = $('#signupEmail').val();
+      var password = $('#signupPassword').val();
+
+      $.ajax({
+        type: 'POST',
+        url: '{% url "signup_que" %}',
+        data: {
+          'firstname': firstname,
+          'lastname': lastname,
+          'email': email,
+          'password': password,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function (response) {
+          if (response.message) {
+            $('#msg').html('<div class="alert alert-danger">' + response.message + '</div>');
+          }
+          else if (response.success) {
+            $('#msg').html('<div class="alert alert-success">' + response.success + '</div>')
+          }
+          // Optionally, you can redirect to another page after successful signup
+          // window.location.href = '/success/';
+        },
+        error: function (xhr, errmsg, err) {
+          // Handle errors if any
+          console.log(xhr.status + ' : ' + xhr.responseText);
+        }
+      });[]
+    });
+  });
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

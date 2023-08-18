@@ -1,0 +1,174 @@
+.bg1{
+  background-image: url('pink.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat ;
+}
+.navbar {
+    background-color: rgb(0, 0, 0);
+        }
+   
+  .navbar .nav-link {
+    display: inline-block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0,0,0);
+    border: 1px solid rgb(0,0,0);
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  .navbar .nav-link:hover {
+    background-color: rgb(0,0,0);
+    color:rgb(198, 198, 198)
+  }
+  
+  .navbar .nav-link.active {
+    background-color: rgb(0,0,0);
+    color:rgb(198, 198, 198);
+  }
+  
+  .navbar .dropdown-menu {
+    background-color: rgb(0,0,0); /* Set the desired background color */
+    color: rgb(255, 255, 255) /* Set the desired text color*/
+  }
+          .mine{
+              height: 570px;
+          }
+        .navbar  .dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: rgb(255, 255, 255);
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+  }
+  
+  .navbar .dropdown-item:focus,
+  .navbar .dropdown-item:hover {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    background-color:rgb(33, 32, 32);
+  }
+  
+  
+  
+  
+  .navbar .navbar-nav .nav-link.active,.navbar .navbar-nav .nav-link.show {
+      color: rgb(255, 255, 255);
+  }
+  .custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(255, 255, 255)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    
+  } */
+  .navbar .navbar-toggler:focus {
+    text-decoration: none;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgb(234, 234, 234); /* Set the desired color for the border */
+  }
+  .btn-custom {
+    color: rgb(255, 255, 255) !important;
+    background-color: rgb(0,0,0) !important;
+    border-color: rgb(0,0,0) !important;
+  }
+  
+  .btn-custom:hover {
+    background-color:rgb(32, 32, 32) !important;
+    border-color: rgb(0, 0, 0) !important;
+  }
+  
+  .btn-custom:focus {
+    outline: 0 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5) !important;
+  }
+  
+  .btn-custom:active {
+    background-color: rgb(32, 32, 32) !important ;
+    border-color:rgb(32, 32, 32) !important;
+    box-shadow: 0 0 0 0.2rem rgba(32, 32, 32, 0.5) inset !important;
+  }
+  .input-group-text {
+    display: flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    white-space: nowrap;
+    background-color: rgb(0,0,0);
+    border: var(--bs-border-width) solid  rgb(0,0,0);
+    border-radius: var(--bs-border-radius);
+}
+.input-group input:focus {
+  border-color: rgb(0,0,0) !important; /* Wine red color */
+  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.2) !important; /* Wine red box shadow */
+}
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  
+  background-color: #f8f9fa;
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid rgb(0,0,0);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: var(--bs-border-radius);
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.form-select {
+  --bs-form-select-bg-img: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e);
+  display: block;
+  width: 100%;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgb(0,0,0);
+  background-color: #f8f9fa;
+  background-image: var(--bs-form-select-bg-img),var(--bs-form-select-bg-icon,none);
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  border: var(--bs-border-width) solid rgb(0,0,0);
+  border-radius: var(--bs-border-radius);
+  transition: border-color .105s ease-in-out,box-shadow .15s ease-in-out;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.form-select:focus {
+  border-color: rgb(0,0,0) !important; /* Wine red color */
+}
+.input-group textarea:focus {
+  border-color: rgb(0,0,0) !important; /* Wine red color */
+  box-shadow: 0 0 0 0.25rem rgba(0,0, 0, 0.2) !important; /* Wine red box shadow */
+}
+.input-group select:focus {
+  border-color: rgb(0,0,0) !important; /* Wine red color */
+  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.2) !important; /* Wine red box shadow */
+}
+.form-control:focus{
+  border-color: rgb(0,0,0) !important; /* Wine red color */
+  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.2) !important; /* Wine red box shadow */
+}
+.form-select:focus,
+.form-select:active {
+  background-color: rgb(255,255,255); /* Wine red color */
+  color: rgb(0,0,0); /* Text color */
+  border-color: rgb(0,0,0); /* Wine red color */
+}
+.form-select option:hover {
+  background-color: rgb(0,0,0) !important; /* Wine red color */
+  color: #3cc31a !important; /* Text color */
+}

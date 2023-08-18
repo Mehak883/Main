@@ -1,0 +1,82 @@
+{% extends 'home.html'%}
+{% block title%}
+BB-LOGIN
+{% endblock%}
+{% block signup %}
+<div class="mx-2">
+    <button type="button" class="btn btn-outline-light " data-toggle="modal"
+      data-target="#loginSignupModal">Login/Signup</button>
+    
+  </div>
+
+{%endblock%}
+{%block class%} class="bg1"{%endblock%}
+
+<!-- <div class="modal " id="loginSignupModal" tabindex="-1" role="dialog" aria-labelledby="loginSignupModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginSignupModalLabel">Login / Signup</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul class="nav nav-tabs" id="loginSignupTabs" role="tablist">
+            <li class="nav-item col-6">
+              <a class="nav-link active" id="loginTab" data-toggle="tab" href="#loginContent" role="tab" aria-controls="loginContent" aria-selected="true">Login</a>
+            </li>
+            <li class="nav-item col-6">
+              <a class="nav-link" id="signupTab" data-toggle="tab" href="#signupContent" role="tab" aria-controls="signupContent" aria-selected="false">Signup</a>
+            </li>
+          </ul>
+          <div class="tab-content mt-2" id="loginSignupTabContent">
+            <div class="tab-pane fade show active" id="loginContent" role="tabpanel" aria-labelledby="loginTab">
+              <!-- Login form goes here -->
+              <!-- <form method="post">
+                <div class="form-group">
+                  <label for="loginEmail">Email</label>
+                  <input type="text" class="form-control" id="loginEmail" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                  <label for="loginPassword">Password</label>
+                  <input type="password" class="form-control" id="loginPassword" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+              </form>
+            </div>
+            
+            <div class="tab-pane fade" id="signupContent" role="tabpanel" aria-labelledby="signupTab">
+               Signup form goes here -->
+        <!--      <form method="post">
+                <div class="form-group">
+                  <label for="signupFirstname">Firstname</label>
+                  <input type="text" class="form-control" id="signupFirstname" placeholder="Enter Firstname">
+                </div>
+                <div class="form-group">
+                  <label for="signupLastname">Lastname</label>
+                  <input type="text" class="form-control" id="signupLastname" placeholder="Enter Lastname">
+                </div>
+                <div class="form-group">
+                  <label for="signupEmail">Email</label>
+                  <input type="email" class="form-control" id="signupEmail" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                  <label for="signupPassword">Password</label>
+                  <input type="password" class="form-control" id="signupPassword" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn btn-primary">Signup</button>
+              </form>
+            
+              <div class="col-md-8 mx-auto social-container my-2 order-md-1">
+                <button class="btn btn-outline-primary mb-2">
+                  <a href="{% url 'social:begin' 'google-oauth2' %}">Login With Google</a>
+                </button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+</div>
+
+ --> 
