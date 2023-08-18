@@ -144,15 +144,15 @@ LOGIN_REDIRECT_URL='ContinueWithGoogleView'
 LOGOUT_URL='logout'
 LOGOUT_REDIRECT_URL='login'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY='791922910924-c1kt9ohhkj7ae2i2n70q8pf2i0oidk2m.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET='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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=''
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' 
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'dhawanmehak10@gmail.com'
-EMAIL_HOST_PASSWORD = 'jqzxswvirnbhnksw'
+EMAIL_HOST_PASSWORD = ''
 
 
-API_KEY='64b60219-cec4-11ed-81b6-0200cd936042'
+API_KEY=''
